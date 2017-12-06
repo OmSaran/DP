@@ -1,4 +1,4 @@
-DP Proeject
+DP Project
 
 socket.cpp - to make oo sockets
 
