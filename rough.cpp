@@ -9,7 +9,8 @@
 #include <cstdlib>
 using namespace std;
 
-class observable;
+//class Subject;
+//class observable;
 class observer
 {
 public:
@@ -20,7 +21,7 @@ public:
         q.push(*obs);
     }
 };
-class observable
+/*class observable
 {
 private:        
     list<observer*> observersList;
@@ -38,7 +39,7 @@ public:
             (*iterator)->update(this);
         }
     }
-};
+};*/
 
 void * job(void * ptr)
 {

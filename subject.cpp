@@ -1,12 +1,14 @@
 #include "socket.cpp"
 //#include <pthread.h>
 #include <unistd.h>
-
+#include "rough.cpp" 
 #include <iostream>
 #include <string>
 //#include <queue>
 //#include <list>
 #include <cstdlib>
+#include <vector>
+
 using namespace std;
 
 class Subject 
@@ -14,21 +16,21 @@ class Subject
 public: 
  Subject() {}; 
  virtual ~Subject() {}; 
- virtual void Attach(Observer*); 
- virtual void Detach(Observer*); 
+ virtual void Attach(observer*); 
+ virtual void Detach(observer*); 
  virtual void Notify();  
 private: 
- vector<Observer*> _observers;
+ vector< observer*> _observers;
 mySocket socket;
 string text; 
 }; 
 
-void Subject::Attach (Observer* o) 
+void Subject::Attach (observer* o) 
 { 
  _observers.push_back(o); 
 } 
 
-void Subject::Detach (Observer* o) 
+void Subject::Detach (observer* o) 
 { 
  int count = _observers.size(); 
  int i; 
