@@ -16,7 +16,7 @@ class observer
 public:
     queue<observable> q;
 // public:
-    void update(observable *obs)
+    void Update(observable *obs)
     {
         q.push(*obs);
     }
