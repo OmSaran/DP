@@ -35,7 +35,7 @@ int main()
     pthread_create(&t, NULL, eventLoop, (void *) &obs);
 
     server = mySocket();
-    server.bind(4000);
+    server.bind(4300);
     server.listen(1);
 
     try 

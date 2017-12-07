@@ -36,6 +36,7 @@ void observable::readInput()
     				while ( getline (myfile,line) )
     				{
       					text.append(line);
+					text.append("\n");
     				}
     			myfile.close();
 
