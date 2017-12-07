@@ -1,15 +1,15 @@
 #include "observer.hpp"
 #include "observable.hpp"
 //#include "mySocket.hpp"
-#include "Subject.hpp"
+//#include "Subject.hpp"
 
 using namespace std;
 
 
- observable (mySocket &socket_in):socket(socket_in){};
+ observable (mySocket *socket_in):socket(socket_in){};
 	 
 
-observable (mySocket &socket_in,string path_in)
+observable (mySocket *socket_in,string path_in)
 	 { 
 		socket=socket_in; 
 		path=path_in;
@@ -66,6 +66,32 @@ void observable::sendResponse()
 states observable::getState()
 {
 	return state;
+}
+void observable::Attach (observer* o) 
+{ 
+ _observers.push_back(o); 
+} 
+
+void observable::Detach (observer* o) 
+{ 
+ int count = _observers.size(); 
+ int i; 
+
+ for (i = 0; i < count; i++) { 
+   if(_observers[i] == o) 
+   break; 
+ } 
+ if(i < count) 
+  _observers.erase(_observers.begin() + i); 
+
+} 
+
+void observable::Notify () 
+{ 
+ int count = _observers.size(); 
+
+ for (int i = 0; i < count; i++) 
+   (_observers[i])->update(this); 
 }
 
 
