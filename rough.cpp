@@ -7,10 +7,44 @@
 #include <list>
 #include <cstdlib>
 
+<<<<<<< HEAD
 #include "observer.hpp"
 #include "observable.hpp"
 #include "mySocket.hpp"
 using namespace std;
+=======
+//class Subject;
+//class observable;
+class observer
+{
+public:
+    queue<observable> q;
+// public:
+    void Update(observable *obs)
+    {
+        q.push(*obs);
+    }
+};
+/*class observable
+{
+private:        
+    list<observer*> observersList;
+public:
+    mySocket socket;
+    string text;
+    void add(observer* o)
+    {
+        observersList.push_back(o);
+    }
+    void notif()
+    {
+        list<observer*>::iterator iterator;
+        for(iterator = observersList.begin(); iterator != observersList.end(); ++iterator) {
+            (*iterator)->update(this);
+        }
+    }
+};*/
+>>>>>>> 61c8661741d30ccd0b7fa8a1317838e64422dc36
 
 void * job(void * ptr)
 {
