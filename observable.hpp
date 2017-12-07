@@ -1,4 +1,3 @@
-
 #ifndef OBSERVABLE_H
 #define OBSERVABLE_H
 
@@ -20,5 +19,6 @@ public:
 	mySocket getSocket();
     void setPath();
     void getPath();
+    void sendResponse();
 };
 #endif
