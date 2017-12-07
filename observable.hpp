@@ -14,6 +14,8 @@ public:
     observable(mySocket * socket_in, string path);
 	virtual ~observable(); 
 
+	void addObserver(observer* );
+	void removeObserver(observer*);
 	void readInput();
 	string getText();
 	mySocket getSocket();
