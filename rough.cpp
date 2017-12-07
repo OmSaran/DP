@@ -43,9 +43,9 @@ int main()
         while(true){
             mySocket client = server.accept();
             cout << "Client ip = " << client.getAddress() << endl;
+            string p = client.recv(1024);
 
             pthread_t t;
-            string p = "abc.txt";
             observable *req = new observable(client, p);
             req->Attach(&obs);
 
