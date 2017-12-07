@@ -31,18 +31,18 @@ private:
 
 
 public: 
-	observable(mySocket *socket_in);
-    observable(mySocket *socket_in, string path_in);
-	virtual ~observable(); 
+	observable(mySocket socket_in);
+    observable(mySocket socket_in, string path_in);
+	// virtual ~observable(); 
 
 	//void readInput(string path);
 	void readInput();
 	string getText();
 	states getState();
 	mySocket getSocket();
-	 void Attach(observer*); 
+	void Attach(observer*); 
  	void Detach(observer*); 
- 	 void Notify();  
+	void Notify();  
 
     //void setPath();
     string getPath();

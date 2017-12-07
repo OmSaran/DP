@@ -14,8 +14,7 @@ void observer::observe()
         {
             while(!q.empty())
             {
-                mySocket client = q.front()->socket;
-                client.send(q.front()->text);
+                q.front()->sendResponse();
                 q.pop();
             }
         }

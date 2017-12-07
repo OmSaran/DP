@@ -6,14 +6,16 @@
 using namespace std;
 
 
- observable (mySocket *socket_in):socket(socket_in){};
+observable::observable (mySocket socket_in){
+	socket = socket_in;
+};
 	 
 
-observable (mySocket *socket_in,string path_in)
-	 { 
-		socket=socket_in; 
-		path=path_in;
-	 }
+observable::observable (mySocket socket_in,string path_in)
+{ 
+	socket=socket_in; 
+	path=path_in;
+}
 
  ///~observable() {}; 
  

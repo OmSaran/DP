@@ -16,8 +16,7 @@ void * job(void * ptr)
 {
     observable* task = (observable *)ptr;
     sleep(2);
-    task->text = "Hello worldzzz " + to_string(rand());
-    task->notif();
+    task->readInput();
 }
 
 void * eventLoop( void * ptr)
@@ -46,9 +45,9 @@ int main()
             cout << "Client ip = " << client.getAddress() << endl;
 
             pthread_t t;
-            observable *req = new observable();
-            req->socket = client;
-            req->add(&obs);
+            string p = "abc.txt";
+            observable *req = new observable(client, p);
+            req->Attach(&obs);
 
             pthread_create(&t, NULL, job, (void *) req);
         }
