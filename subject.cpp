@@ -1,29 +1,6 @@
-#include "socket.cpp"
-//#include <pthread.h>
-#include <unistd.h>
-#include "rough.cpp" 
-#include <iostream>
-#include <string>
-//#include <queue>
-//#include <list>
-#include <cstdlib>
-#include <vector>
+
 
 using namespace std;
-
-class Subject 
-{ 
-public: 
- Subject() {}; 
- virtual ~Subject() {}; 
- virtual void Attach(observer*); 
- virtual void Detach(observer*); 
- virtual void Notify();  
-private: 
- vector< observer*> _observers;
-mySocket socket;
-string text; 
-}; 
 
 void Subject::Attach (observer* o) 
 { 
