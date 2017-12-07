@@ -1,4 +1,3 @@
-#include "socket.cpp"
 #include <pthread.h>
 #include <unistd.h>
 
@@ -7,38 +6,11 @@
 #include <queue>
 #include <list>
 #include <cstdlib>
-using namespace std;
 
-class observable;
-class observer
-{
-public:
-    queue<observable> q;
-// public:
-    void update(observable *obs)
-    {
-        q.push(*obs);
-    }
-};
-class observable
-{
-private:        
-    list<observer*> observersList;
-public:
-    mySocket socket;
-    string text;
-    void add(observer* o)
-    {
-        observersList.push_back(o);
-    }
-    void notif()
-    {
-        list<observer*>::iterator iterator;
-        for(iterator = observersList.begin(); iterator != observersList.end(); ++iterator) {
-            (*iterator)->update(this);
-        }
-    }
-};
+#include "observer.hpp"
+#include "observable.hpp"
+#include "mySocket.hpp"
+using namespace std;
 
 void * job(void * ptr)
 {
@@ -48,22 +20,10 @@ void * job(void * ptr)
     task->notif();
 }
 
-
 void * eventLoop( void * ptr)
 {
     observer* obs = (observer *) ptr;
-    while(true)
-    {
-        if(!obs->q.empty())
-        {
-            while(!obs->q.empty())
-            {
-                mySocket client = obs->q.front().socket;
-                client.send(obs->q.front().text);
-                obs->q.pop();
-            }
-        }
-    }
+    obs->observe();
 }
 
 int main()
@@ -79,10 +39,6 @@ int main()
     server.bind(4000);
     server.listen(1);
 
-    // mySocket client = server.accept();
-    // cout << "Client ip = " << client.getAddress() << endl;
-
-
     try 
     {
         while(true){
@@ -97,22 +53,6 @@ int main()
             pthread_create(&t, NULL, job, (void *) req);
         }
     }
-
-    // try
-    // {
-    //     while(1)
-    //     {
-    //         string msg;
-    
-    //         cout << "Enter message to send to Client: " << endl;
-    //         cin >> msg;
-    //         client.send(msg);
-    //         msg.clear();
-    
-    //         cout << "Waiting for message from Client: " << endl;
-    //         cout << client.recv(1024) << endl;
-    //     }
-    // }
     catch (runtime_error err) {
         cout << err.what() << endl;
     }
