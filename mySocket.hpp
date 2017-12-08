@@ -8,7 +8,7 @@
 using namespace std;
 
 
-class mySocket 
+class MySocket 
 {
 
 private:
@@ -16,10 +16,10 @@ private:
     int fd = -1;
     int port = -1;
 public:
-    mySocket();
+    MySocket();
     void bind(int port);
     void listen(int maxQueueSize);
-    mySocket accept();
+    MySocket accept();
     std::string getAddress();
     std::string recv(int bufferSize);
     void send(std::string message);

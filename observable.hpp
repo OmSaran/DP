@@ -1,50 +1,39 @@
 #ifndef OBSERVABLE_H
 #define OBSERVABLE_H
-//#include "Subject.hpp"
-#include "states.hpp"
-#include "mySocket.hpp"
+#include "States.hpp"
+#include "MySocket.hpp"
 #include <iostream>
 #include <fstream>
 
-
-//#include "socket.cpp"
-//#include <pthread.h>
 #include <unistd.h>
-//#include "rough.cpp" 
 #include <iostream>
 #include <string>
-//#include <queue>
-//#include <list>
 #include <cstdlib>
 #include <vector>
-#include "observer.hpp"
+#include "Observer.hpp"
 
 
-class observable //: public Subject
+class Observable
 {
 private:
-	mySocket socket;
+	MySocket socket;
 	string text;
-    	string path;
-	states state=notRead;
-	vector< observer*> _observers;
+    string path;
+	States state= NOT_READ;
+	vector<Observer*> _observers;
 
 
 public: 
-	observable(mySocket socket_in);
-    observable(mySocket socket_in, string path_in);
-	// virtual ~observable(); 
+	Observable(MySocket socket_in);
+    Observable(MySocket socket_in, string path_in);
 
-	//void readInput(string path);
 	void readInput();
 	string getText();
-	states getState();
-	mySocket getSocket();
-	void Attach(observer*); 
- 	void Detach(observer*); 
-	void Notify();  
-
-    //void setPath();
+	States getState();
+	MySocket getSocket();
+	void attach(Observer*); 
+ 	void detach(Observer*); 
+	void notify();
     string getPath();
     void sendResponse();
 };

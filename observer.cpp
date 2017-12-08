@@ -1,12 +1,15 @@
-#include "observer.hpp"
-#include "observable.hpp"
-#include "mySocket.hpp"
+#include "Observer.hpp"
+#include "Observable.hpp"
+#include "MySocket.hpp"
 
-void observer::update(observable *obs)
+void Observer::update(Observable *obs)
 {
-    q.push(obs);
+    if(obs->getState() == States::FINISHED_READING)
+    {
+        q.push(obs);    
+    }
 }
-void observer::observe() 
+void Observer::observe() 
 {
     while(true)
     {

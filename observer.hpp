@@ -3,14 +3,14 @@
 
 #include <queue>
 
-class observable;
+class Observable;
 
-class observer
+class Observer
 {
 private:
-    std::queue<observable* > q;
+    std::queue<Observable* > q;
 public:
-    void update(observable *obs);
+    void update(Observable *obs);
     void observe();
 };
 #endif

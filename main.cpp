@@ -7,47 +7,47 @@
 #include <list>
 #include <cstdlib>
 
-#include "observer.hpp"
-#include "observable.hpp"
-#include "mySocket.hpp"
+#include "Observer.hpp"
+#include "Observable.hpp"
+#include "MySocket.hpp"
 using namespace std;
 
 void * job(void * ptr)
 {
-    observable* task = (observable *)ptr;
-    sleep(2);
+    Observable* task = (Observable *)ptr;
+    // sleep(2);
     task->readInput();
 }
 
 void * eventLoop( void * ptr)
 {
-    observer* obs = (observer *) ptr;
+    Observer* obs = (Observer *) ptr;
     obs->observe();
 }
 
 int main()
 {
     string buffer;
-    mySocket server;   
-    observer obs;
+    MySocket server;   
+    Observer obs;
 
     pthread_t t;
     pthread_create(&t, NULL, eventLoop, (void *) &obs);
 
-    server = mySocket();
+    server = MySocket();
     server.bind(4300);
     server.listen(1);
 
     try 
     {
         while(true){
-            mySocket client = server.accept();
+            MySocket client = server.accept();
             cout << "Client ip = " << client.getAddress() << endl;
             string p = client.recv(1024);
 
             pthread_t t;
-            observable *req = new observable(client, p);
-            req->Attach(&obs);
+            Observable *req = new Observable(client, p);
+            req->attach(&obs);
 
             pthread_create(&t, NULL, job, (void *) req);
         }

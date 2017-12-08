@@ -7,10 +7,10 @@
 
 #include <iostream>
 #include <string>
-#include "mySocket.hpp"
+#include "MySocket.hpp"
 using namespace std;
 
-mySocket::mySocket()
+MySocket::MySocket()
 {
     fd = ::socket(AF_INET, SOCK_STREAM, 0);
     if(fd < 0)
@@ -18,7 +18,7 @@ mySocket::mySocket()
         throw runtime_error("Failed to create socket");
     }
 }
-void mySocket::bind(int port)
+void MySocket::bind(int port)
 {
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(port);
@@ -35,7 +35,7 @@ void mySocket::bind(int port)
     }
 }
 
-void mySocket::listen(int maxQueueSize)
+void MySocket::listen(int maxQueueSize)
 {
     if( (::listen(fd, maxQueueSize)) < 0 )
     {
@@ -44,7 +44,7 @@ void mySocket::listen(int maxQueueSize)
     }
 }
 
-mySocket mySocket::accept()
+MySocket MySocket::accept()
 {
     struct sockaddr_in clientAddress;
     int addrlen = sizeof(clientAddress);
@@ -54,19 +54,19 @@ mySocket mySocket::accept()
     {
         throw runtime_error("Could not accept connection");
     }
-    mySocket client = mySocket();
+    MySocket client = MySocket();
     client.address = clientAddress;
     client.fd = clientFD;
     return client;
 }
 
-string mySocket::getAddress()
+string MySocket::getAddress()
 {
     const char* ip = inet_ntoa(address.sin_addr);
     return string(ip);
 }
 
-string mySocket::recv(int bufferSize)
+string MySocket::recv(int bufferSize)
 {
     char * msg = (char *) calloc(bufferSize, sizeof(char));
     if( (::recv(fd, msg, bufferSize, 0)) < 0 )
@@ -75,7 +75,7 @@ string mySocket::recv(int bufferSize)
     }
     return string(msg);
 }
-void mySocket::send(string message)
+void MySocket::send(string message)
 {
     if( (::send(fd, message.c_str(), message.length(), 0)) <0 )
     {
@@ -83,7 +83,7 @@ void mySocket::send(string message)
     }
 }
 
-void mySocket::connect(string hostName, int port)
+void MySocket::connect(string hostName, int port)
 {
 
     address.sin_family = AF_INET;
