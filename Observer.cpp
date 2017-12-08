@@ -4,7 +4,7 @@
 
 void Observer::update(Observable *obs)
 {
-    if(obs->getState() == States::FINISHED_READING)
+    if(obs->getState() == FINISHED_READING)
     {
         q.push(obs);    
     }

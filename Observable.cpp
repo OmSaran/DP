@@ -18,7 +18,7 @@ void Observable::readInput()
 {
 	string line;
 	ifstream myfile (path.c_str());
-	state = States::READING;
+	state = READING;
 	if (myfile.is_open())
 	{
 		while ( getline (myfile,line) )
@@ -33,7 +33,7 @@ void Observable::readInput()
 	{
 		throw ResourceNotFoundException();
 	}
-	state = States::FINISHED_READING;
+	state = FINISHED_READING;
 	notify(); 
 
 }
