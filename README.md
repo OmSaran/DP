@@ -1,7 +1,6 @@
 DP Project
 
-socket.cpp - to make oo sockets
+make
 
-mysocketserver.cpp - server using socket.cpp
-
-mysocketclient.cpp - client using socket.cpp
+server 
+client resource
