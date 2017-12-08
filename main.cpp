@@ -20,9 +20,9 @@ void * job(void * ptr)
     try {
         task->readInput();
     }
-    catch(exception &e)
+    catch(ResourceNotFoundException &e)
     {
-        cout << e.what();
+        task->sendResponse();
     }
 }
 

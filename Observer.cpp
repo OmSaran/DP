@@ -6,17 +6,39 @@ void Observer::update(Observable *obs)
 {
     if(obs->getState() == FINISHED_READING)
     {
-        q.push(obs);    
+        completedQ.push(obs);
+    }
+    if(obs->getState() == READING)
+    {
+        processingList.push_back(obs);
+    }
+    if(obs->getState() == FINISHED_READING)
+    {
+        for(auto it=processingList.begin(); it!=processingList.end();++it) {
+            if((*it) == obs)
+            {
+                processingList.erase(it);
+            }
+        }
     }
 }
 void Observer::observe() 
 {
+    int size = processingList.size();
     while(true)
     {
-        while(!q.empty())
+        while(!completedQ.empty())
         {
-            q.front()->sendResponse();
-            q.pop();
+            completedQ.front()->sendResponse();
+            completedQ.pop();
+        }
+
+        if(size != processingList.size()) {
+            cout << "Processing: " ;
+            for(auto it=processingList.begin(); it!=processingList.end();++it)
+                std::cout << (*it)->getPath() << " ";
+            size = processingList.size();
+            std::cout << "\n";
         }
     }
 }

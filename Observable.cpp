@@ -19,11 +19,13 @@ void Observable::readInput()
 	string line;
 	ifstream myfile (path.c_str());
 	state = READING;
+	notify();
 	if (myfile.is_open())
 	{
 		while ( getline (myfile,line) )
 		{
 			text.append(line);
+			sleep(2);
 			text.append("\n");
 		}
 		myfile.close();
@@ -31,6 +33,7 @@ void Observable::readInput()
 	}
 	else
 	{
+		text = "Resource not found";
 		throw ResourceNotFoundException();
 	}
 	state = FINISHED_READING;
