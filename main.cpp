@@ -10,13 +10,20 @@
 #include "Observer.hpp"
 #include "Observable.hpp"
 #include "MySocket.hpp"
+#include "Exceptions.hpp"
 using namespace std;
 
 void * job(void * ptr)
 {
     Observable* task = (Observable *)ptr;
     // sleep(2);
-    task->readInput();
+    try {
+        task->readInput();
+    }
+    catch(exception &e)
+    {
+        cout << e.what();
+    }
 }
 
 void * eventLoop( void * ptr)

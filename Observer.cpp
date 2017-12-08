@@ -13,13 +13,10 @@ void Observer::observe()
 {
     while(true)
     {
-        if(!q.empty())
+        while(!q.empty())
         {
-            while(!q.empty())
-            {
-                q.front()->sendResponse();
-                q.pop();
-            }
+            q.front()->sendResponse();
+            q.pop();
         }
     }
 }

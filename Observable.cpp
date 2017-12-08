@@ -1,5 +1,6 @@
 #include "Observer.hpp"
 #include "Observable.hpp"
+#include "Exceptions.hpp"
 
 using namespace std;
 
@@ -27,6 +28,10 @@ void Observable::readInput()
 		}
 		myfile.close();
 
+	}
+	else
+	{
+		throw ResourceNotFoundException();
 	}
 	state = States::FINISHED_READING;
 	notify(); 
