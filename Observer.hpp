@@ -2,16 +2,16 @@
 #define OBSERVER_H
 
 #include <queue>
-#include <deque>
-#include <list>
+#include <map>
+#include <utility>
+#include "MySocket.hpp"
 
 class Observable;
 
 class Observer
 {
 private:
-    std::queue<Observable *> completedQ;
-    std::list<Observable *> processingList;
+    std::queue< pair<MySocket, string> > q;
 public:
     void update(Observable *obs);
     void observe();

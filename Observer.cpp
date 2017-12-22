@@ -2,43 +2,30 @@
 #include "Observable.hpp"
 #include "MySocket.hpp"
 
+#include <iostream>
+#include <map>
+#include <utility>
+
+using namespace std;
+
 void Observer::update(Observable *obs)
 {
     if(obs->getState() == FINISHED_READING)
     {
-        completedQ.push(obs);
-    }
-    if(obs->getState() == READING)
-    {
-        processingList.push_back(obs);
-    }
-    if(obs->getState() == FINISHED_READING)
-    {
-        for(auto it=processingList.begin(); it!=processingList.end();++it) {
-            if((*it) == obs)
-            {
-                processingList.erase(it);
-            }
-        }
+        q.push(make_pair(obs->getSocket(), obs->getText()));
     }
 }
 void Observer::observe() 
 {
-    int size = processingList.size();
     while(true)
     {
-        while(!completedQ.empty())
+        while(!q.empty())
         {
-            completedQ.front()->sendResponse();
-            completedQ.pop();
-        }
-
-        if(size != processingList.size()) {
-            cout << "Processing: " ;
-            for(auto it=processingList.begin(); it!=processingList.end();++it)
-                std::cout << (*it)->getPath() << " ";
-            size = processingList.size();
-            std::cout << "\n";
+            MySocket* sock = &(q.front().first);
+            string* text = &(q.front().second);
+            
+            sock->send(*text);
+            q.pop();
         }
     }
 }

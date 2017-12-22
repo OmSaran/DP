@@ -13,8 +13,6 @@ using namespace std;
 MySocket::MySocket()
 {
     fd = ::socket(AF_INET, SOCK_STREAM, 0);
-    int n = 1;
-    setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &n, sizeof(int));
     if(fd < 0)
     {
         throw runtime_error("Failed to create socket");

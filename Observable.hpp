@@ -35,6 +35,6 @@ public:
  	void detach(Observer*); 
 	void notify();
     string getPath();
-    void sendResponse();
+    // void sendResponse();
 };
 #endif

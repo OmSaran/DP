@@ -19,21 +19,19 @@ void Observable::readInput()
 	string line;
 	ifstream myfile (path.c_str());
 	state = READING;
-	notify();
 	if (myfile.is_open())
 	{
 		while ( getline (myfile,line) )
 		{
 			text.append(line);
-			sleep(2);
 			text.append("\n");
 		}
+		sleep(1);
 		myfile.close();
 
 	}
 	else
 	{
-		text = "Resource not found";
 		throw ResourceNotFoundException();
 	}
 	state = FINISHED_READING;
@@ -56,10 +54,10 @@ string Observable::getPath()
 	return path;
 }
 
-void Observable::sendResponse()
-{
-	socket.send(text);
-}
+// void Observable::sendResponse()
+// {
+// 	socket.send(text);
+// }
 
 States Observable::getState()
 {

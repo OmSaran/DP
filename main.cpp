@@ -20,9 +20,9 @@ void * job(void * ptr)
     try {
         task->readInput();
     }
-    catch(ResourceNotFoundException &e)
+    catch(exception &e)
     {
-        task->sendResponse();
+        cout << e.what();
     }
 }
 
@@ -49,7 +49,7 @@ int main()
     {
         while(true){
             MySocket client = server.accept();
-            cout << "Client ip = " << client.getAddress() << endl;
+            // cout << "Client ip = " << client.getAddress() << endl;
             string p = client.recv(1024);
 
             pthread_t t;
