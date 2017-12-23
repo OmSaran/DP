@@ -5,6 +5,8 @@
 #include <string>
 #include <queue>
 #include <list>
+#include <vector>
+#include <algorithm>
 #include <cstdlib>
 
 #include "Observer.hpp"
@@ -32,8 +34,26 @@ void * eventLoop( void * ptr)
     obs->observe();
 }
 
+bool in_array(const string &value, const vector<string> &array)
+{
+    return find(array.begin(), array.end(), value) != array.end();
+}
+
 int main()
 {
+    vector<string> res {
+            "resource1",
+            "resource2",
+            "resource3",
+            "resource4",
+            "resource5",
+            "resource6",
+            "resource7",
+            "resource8",
+            "resource9",
+            "resource10"
+        };
+
     string buffer;
     MySocket server;   
     Observer obs;
@@ -51,6 +71,12 @@ int main()
             MySocket client = server.accept();
             // cout << "Client ip = " << client.getAddress() << endl;
             string p = client.recv(1024);
+
+            if( !in_array(p, res) )
+            {
+                client.send("Invalid Request");
+                continue;
+            }
 
             pthread_t t;
             Observable *req = new Observable(client, p);
